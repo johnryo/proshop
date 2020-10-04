@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from 'react-bootstrap'
+import axios from 'axios'
 import Rating from '../components/Rating'
-import products from '../products'
 
 const ProductScreen = ({ match }) => {
-  const product = products.find(p => p._id === match.params.id)
+  const [product, setProduct] = useState({})
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`)
+      
+      setProduct(data)
+    }
+
+    fetchProduct()
+  }, [match])
+
   return (
     <>
       <Link to='/' className='btn btn-light my-3'>Go Back</Link>
@@ -15,24 +26,24 @@ const ProductScreen = ({ match }) => {
         </Col>
         <Col md={3}>
           <ListGroup variant='flush'>
-            <ListGroup.Item>
+            <ListGroupItem>
               <h3>{product.name}</h3>
-            </ListGroup.Item>
-            <ListGroup.Item>
+            </ListGroupItem>
+            <ListGroupItem>
               <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-            </ListGroup.Item>
-            <ListGroup.Item>
+            </ListGroupItem>
+            <ListGroupItem>
               Price: ${product.price}
-            </ListGroup.Item>
-            <ListGroup.Item>
+            </ListGroupItem>
+            <ListGroupItem>
               Description: {product.description}
-            </ListGroup.Item>
+            </ListGroupItem>
           </ListGroup>
         </Col>
         <Col md={3}>
           <Card>
             <ListGroup variant='flush'>
-              <ListGroup.Item>
+              <ListGroupItem>
                 <Row>
                   <Col>
                     Price:
@@ -41,8 +52,8 @@ const ProductScreen = ({ match }) => {
                     <strong>${product.price}</strong>
                   </Col>
                 </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
+              </ListGroupItem>
+              <ListGroupItem>
                 <Row>
                   <Col>
                     Status:
@@ -51,10 +62,10 @@ const ProductScreen = ({ match }) => {
                     {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
                   </Col>
                 </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
+              </ListGroupItem>
+              <ListGroupItem>
                 <Button type='button' className='btn-block' disabled={product.countInStock === 0}>Add To Cart</Button>
-              </ListGroup.Item>
+              </ListGroupItem>
             </ListGroup>
           </Card>
         </Col>
