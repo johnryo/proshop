@@ -129,7 +129,7 @@ const ProfileScreen = ({ location, history }) => {
             className='table-sm'
           >
             <thead>
-              <tr>
+              <tr className='text-center'>
                 <th>ID</th>
                 <th>DATE</th>
                 <th>TOTAL</th>
