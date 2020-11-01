@@ -113,7 +113,7 @@ const OrderScreen = ({ match, history }) => {
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered
-                ? <Message variant='success'>Sent on {order.deliveredAt}</Message>
+                ? <Message variant='success'>Shipped on {order.deliveredAt}</Message>
                 : <Message variant='danger'>Not Delivered</Message>
               }
             </ListGroup.Item>
@@ -165,7 +165,7 @@ const OrderScreen = ({ match, history }) => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2 className='text-center'>Order Summary</h2>
               </ListGroup.Item>
 
               <ListGroup.Item>
